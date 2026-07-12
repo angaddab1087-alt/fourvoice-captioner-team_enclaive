@@ -1,0 +1,5 @@
+# Ignore Python backend files so Vercel doesn't try to build a Python runtime
+requirements.txt
+*.py
+Dockerfile
+render.yaml
