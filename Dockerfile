@@ -26,6 +26,7 @@ COPY fourvoice-captioner/ .
 RUN mkdir -p /input /output
 
 ENV PORT=3001
+ENV NODE_OPTIONS="--max-old-space-size=160"
 EXPOSE 3001
 
 # Start the Express server
