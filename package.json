@@ -1,0 +1,7 @@
+{
+  "name": "fourvoice-captioner-root",
+  "private": true,
+  "scripts": {
+    "build": "cd fourvoice-captioner && npm install && npm run build"
+  }
+}

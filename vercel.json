@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd fourvoice-captioner && npm install && npm run build",
+  "outputDirectory": "fourvoice-captioner/dist",
+  "framework": "vite",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
