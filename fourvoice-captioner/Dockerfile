@@ -1,29 +1,34 @@
-# FourVoice Captioner — AMD Hackathon ACT II Track 2
+# FourVoice Captioner Backend (Express + Python)
 # Build: docker buildx build --platform linux/amd64 -t fourvoice-captioner:latest --load .
-# Run:   docker run --rm --env-file .env -v ./sample_input:/input:ro -v ./sample_output:/output fourvoice-captioner:latest
 
-FROM --platform=linux/amd64 python:3.11-slim
+FROM --platform=linux/amd64 node:20-bullseye-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     ca-certificates \
+    python3 \
+    python3-pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
+# Install Python deps
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt --break-system-packages
 
-COPY fourvoice_captioner.py .
+# Install Node deps
+COPY package*.json ./
+RUN npm install
 
+# Copy all source files
+COPY . .
+
+# Ensure temp directories exist
 RUN mkdir -p /input /output
 
-ENV INPUT_PATH=/input/tasks.json \
-    INPUT_DIR=/input \
-    OUTPUT_PATH=/output/results.json \
-    OUTPUT_DIR=/output \
-    PYTHONUNBUFFERED=1
+ENV PORT=3001
+EXPOSE 3001
 
-ENTRYPOINT ["python3", "fourvoice_captioner.py"]
-CMD []
+# Start the Express server
+CMD ["npm", "run", "dev:api"]

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: fourvoice-backend
+    env: docker
+    region: ohio
+    plan: free
+    dockerContext: ./fourvoice-captioner
+    dockerfilePath: ./fourvoice-captioner/Dockerfile
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: FRONTEND_URL
+        value: "*" # To be restricted after Vercel deployment

@@ -6,6 +6,10 @@
   <title>FourVoice Captioner</title>
   <meta name="description" content="Four tones. One clip. Zero guesswork. AI-powered video captioning."/>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    const envApiUrl = "%VITE_API_URL%";
+    window.API_BASE_URL = envApiUrl.startsWith("%") ? "" : envApiUrl;
+  </script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -759,7 +763,7 @@
         formData.append('video', selectedFile);
         formData.append('jobId', jobId);
 
-        const response = await fetch('/api/analyze', {
+        const response = await fetch(window.API_BASE_URL + '/api/analyze', {
           method: 'POST',
           body: formData
         });
@@ -1252,7 +1256,7 @@
       updateProgressBar(0);
       progressPollInterval = setInterval(async () => {
         try {
-          const response = await fetch('/api/progress?jobId=' + encodeURIComponent(jobId));
+          const response = await fetch(window.API_BASE_URL + '/api/progress?jobId=' + encodeURIComponent(jobId));
           if (response.ok) {
             const data = await response.json();
             if (data.stage) {

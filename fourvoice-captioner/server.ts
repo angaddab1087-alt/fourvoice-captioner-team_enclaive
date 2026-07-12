@@ -140,9 +140,9 @@ function normalizePipelineResult(raw: Record<string, unknown>) {
 
 const app = express();
 
-// CORS for frontend on 5173
+// Dynamic CORS for split deployment
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.sendStatus(200);
