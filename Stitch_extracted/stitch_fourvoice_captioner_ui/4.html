@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FourVoice Captioner - Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "on-secondary": "#003921",
+                        "on-tertiary-fixed-variant": "#484740",
+                        "surface-variant": "#323533",
+                        "on-tertiary-fixed": "#1c1c16",
+                        "surface-container-high": "#282b28",
+                        "on-primary-container": "#654000",
+                        "inverse-surface": "#e1e3df",
+                        "inverse-on-surface": "#2e312f",
+                        "primary-container": "#f0a93e",
+                        "on-tertiary-container": "#494842",
+                        "outline": "#9e8e7c",
+                        "secondary-fixed": "#95f6bf",
+                        "background": "#111412",
+                        "tertiary-fixed-dim": "#cac6be",
+                        "primary": "#ffc982",
+                        "tertiary": "#d6d2ca",
+                        "surface-container": "#1d201e",
+                        "surface-container-highest": "#323533",
+                        "on-secondary-container": "#9bfcc4",
+                        "outline-variant": "#514536",
+                        "surface-bright": "#373a37",
+                        "on-primary-fixed": "#291800",
+                        "tertiary-container": "#bab7af",
+                        "on-primary": "#452b00",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#633f00",
+                        "surface-container-low": "#191c1a",
+                        "on-surface-variant": "#d6c4b0",
+                        "on-secondary-fixed": "#002111",
+                        "surface-tint": "#ffb955",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#79daa4",
+                        "secondary-container": "#00784b",
+                        "surface-container-lowest": "#0c0f0d",
+                        "surface-dim": "#111412",
+                        "on-background": "#e1e3df",
+                        "surface": "#111412",
+                        "inverse-primary": "#835500",
+                        "tertiary-fixed": "#e6e2d9",
+                        "on-surface": "#e1e3df",
+                        "primary-fixed-dim": "#ffb955",
+                        "on-secondary-fixed-variant": "#005232",
+                        "secondary": "#79daa4",
+                        "primary-fixed": "#ffddb4",
+                        "on-tertiary": "#31302b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["IBM Plex Mono"],
+                        "headline-md": ["Bricolage Grotesque"],
+                        "emphasis-italic": ["Libre Caslon Text"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Bricolage Grotesque"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Bricolage Grotesque"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "emphasis-italic": ["18px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                },
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Bricolage+Grotesque:wght@700;800&amp;family=Inter:wght@400;600&amp;family=Libre+Caslon+Text:ital@1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+        .glass-panel { background: rgba(27, 31, 28, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(158, 142, 124, 0.2); }
+        
+        @media (prefers-reduced-motion: no-preference) {
+            .tab-indicator { transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), width 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+            .caption-card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+            .caption-card-hover:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 4px 20px rgba(255, 201, 130, 0.15); border-color: rgba(255, 201, 130, 0.5); }
+        }
+        
+        .recommended-glow { box-shadow: 0 0 20px rgba(95, 191, 140, 0.15); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col items-center pt-8 pb-16 px-margin-mobile md:px-margin-desktop">
+<!-- TopAppBar Shell (Suppressed per task context - Results screen is a linear/transactional end state) -->
+<main class="w-full max-w-4xl mx-auto flex flex-col gap-8">
+<!-- Header / Small Video Preview -->
+<header class="flex flex-col md:flex-row items-center md:items-start gap-6 border-b border-surface-variant pb-8">
+<div class="relative w-full md:w-48 aspect-video rounded-lg overflow-hidden border border-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="A small, stylized video thumbnail showing a person talking excitedly into a microphone in a dimly lit studio setting with technical hardware in the background. High contrast, modern technical aesthetic, muted greens and deep blacks." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDoOJrrue8-OCrdMR3476biudzu7nTty-SIsHlmLW6fxGiv013SnQlXcrO2udZQozQvsIyi5MhPFwKG7SxZzECUcahzdfo4ZHQFor6CWszTJlfg5zPEAscedDvRuES5eOqyxJ7JWYBjs6xRQgE5hwgALvZ9k-11n5rWLUbX3eGiW48227xYk-aK_GMCJkuGok56XHm47bXYqzTBBvV2RI_jBAxzzwX0jXUw4HLvj8G69dx3Cx_P2QltFg9K9Idm6LF5KHTwRWG6rjn"/>
+<div class="absolute inset-0 flex items-center justify-center bg-background/40">
+<span class="material-symbols-outlined text-primary text-3xl drop-shadow-md">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 w-full">
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-primary tracking-tighter">Analysis Complete</h1>
+<p class="text-on-surface-variant text-body-lg font-body-lg">Generated 4 distinct caption variants based on tonal analysis.</p>
+<div class="mt-4 flex items-center gap-3">
+<span class="text-label-caps font-label-caps text-on-surface-variant">CONFIDENCE: DIRECT VS. INFERRED</span>
+<div class="bg-surface-container-high rounded-full px-3 py-1 flex items-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-caps font-label-caps text-secondary font-mono" id="confidence-score">0%</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<section class="flex flex-col gap-6">
+<!-- Recommended Highlight -->
+<div class="glass-panel rounded-[24px] p-6 border-[#5FBF8C] border-opacity-50 recommended-glow relative overflow-hidden caption-card-hover group cursor-pointer">
+<div class="absolute top-0 right-0 bg-[#5FBF8C] text-background text-label-caps font-label-caps px-4 py-1 rounded-bl-lg font-bold">RECOMMENDED</div>
+<div class="flex flex-col gap-4 relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#5FBF8C]">psychology</span>
+<h2 class="text-headline-md font-headline-md text-on-surface">Humorous-Tech</h2>
+</div>
+<p class="text-emphasis-italic font-emphasis-italic text-on-surface-variant border-l-2 border-surface-variant pl-4">Best match for the detected audio patterns and visual context.</p>
+<div class="bg-surface-container-highest rounded-xl p-4 mt-2">
+<p class="text-body-lg font-body-lg text-primary-fixed">"So basically, if you don't use this new framework, you're coding like it's 2015. And nobody wants to be *that* guy at the standup. 💀🚀"</p>
+</div>
+<div class="flex justify-end mt-2">
+<button class="bg-primary text-on-primary rounded-full px-6 py-2 text-label-caps font-label-caps hover:bg-primary-fixed-dim transition-colors flex items-center gap-2">
+<span>USE VARIANT</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tab Switcher for Other Variants -->
+<div class="mt-8 flex flex-col gap-6">
+<div class="relative border-b border-surface-variant pb-2">
+<div class="flex gap-8 overflow-x-auto no-scrollbar" id="tab-list" role="tablist">
+<button aria-selected="true" class="text-label-caps font-label-caps text-primary tracking-widest uppercase pb-2 px-1 relative tab-btn active" data-target="formal" role="tab">
+                            FORMAL
+                        </button>
+<button aria-selected="false" class="text-label-caps font-label-caps text-on-surface-variant tracking-widest uppercase pb-2 px-1 relative tab-btn hover:text-primary transition-colors" data-target="sarcastic" role="tab">
+                            SARCASTIC
+                        </button>
+<button aria-selected="false" class="text-label-caps font-label-caps text-on-surface-variant tracking-widest uppercase pb-2 px-1 relative tab-btn hover:text-primary transition-colors" data-target="humorous-non-tech" role="tab">
+                            HUMOROUS-NON-TECH
+                        </button>
+</div>
+<div class="absolute bottom-[-1px] left-0 h-[2px] bg-primary tab-indicator w-16" id="tab-indicator"></div>
+</div>
+<!-- Tab Panels -->
+<div class="relative min-h-[150px]">
+<div class="tab-panel absolute inset-0 opacity-100 transition-opacity duration-150" id="panel-formal" role="tabpanel">
+<div class="bg-[#1B1F1C] rounded-[20px] p-6 border border-outline-variant caption-card-hover group cursor-pointer flex flex-col justify-between h-full">
+<p class="text-body-lg font-body-lg text-on-surface">"It is highly recommended to adopt this modern framework to ensure codebase maintainability and align with current industry standards."</p>
+<div class="flex justify-between items-end mt-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant">READING LEVEL: PROFESSIONAL</span>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-sm">content_copy</span> COPY
+                                </button>
+</div>
+</div>
+</div>
+<div class="tab-panel absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-150" id="panel-sarcastic" role="tabpanel">
+<div class="bg-[#1B1F1C] rounded-[20px] p-6 border border-outline-variant caption-card-hover group cursor-pointer flex flex-col justify-between h-full">
+<p class="text-body-lg font-body-lg text-on-surface">"Oh look, another framework. Sure, keep using the old one if you enjoy refactoring spaghetti code on a Friday night."</p>
+<div class="flex justify-between items-end mt-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant">TONE: DRY / MOCKING</span>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-sm">content_copy</span> COPY
+                                </button>
+</div>
+</div>
+</div>
+<div class="tab-panel absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-150" id="panel-humorous-non-tech" role="tabpanel">
+<div class="bg-[#1B1F1C] rounded-[20px] p-6 border border-outline-variant caption-card-hover group cursor-pointer flex flex-col justify-between h-full">
+<p class="text-body-lg font-body-lg text-on-surface">"Using old tools is like trying to build an IKEA shelf with a spoon. Just upgrade already before you break something."</p>
+<div class="flex justify-between items-end mt-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant">ANALOGY: EVERYDAY STRUGGLE</span>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-sm">content_copy</span> COPY
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Action -->
+<footer class="mt-12 flex justify-center border-t border-surface-variant pt-8">
+<a class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-label-caps font-label-caps group cursor-pointer" href="#">
+<span class="material-symbols-outlined text-lg group-hover:-rotate-90 transition-transform">refresh</span>
+                ANALYZE ANOTHER VIDEO
+            </a>
+</footer>
+</main>
+<script>
+        // Check prefers-reduced-motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Confidence Score Animation
+        const scoreEl = document.getElementById('confidence-score');
+        const targetScore = 92;
+        let currentScore = 0;
+        
+        if (prefersReducedMotion) {
+            scoreEl.textContent = targetScore + '%';
+        } else {
+            const duration = 1500; // ms
+            const interval = 20; // ms
+            const step = targetScore / (duration / interval);
+
+            const animateScore = setInterval(() => {
+                currentScore += step;
+                if (currentScore >= targetScore) {
+                    currentScore = targetScore;
+                    clearInterval(animateScore);
+                }
+                scoreEl.textContent = Math.round(currentScore) + '%';
+            }, interval);
+        }
+
+        // Tab Switching Logic
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+        const indicator = document.getElementById('tab-indicator');
+
+        function updateIndicator(activeTab) {
+            indicator.style.width = `${activeTab.offsetWidth}px`;
+            indicator.style.transform = `translateX(${activeTab.offsetLeft}px)`;
+        }
+
+        // Initialize indicator
+        const initialTab = document.querySelector('.tab-btn.active');
+        if(initialTab) setTimeout(() => updateIndicator(initialTab), 50);
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all tabs
+                tabs.forEach(t => {
+                    t.classList.remove('active', 'text-primary');
+                    t.classList.add('text-on-surface-variant');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                // Add active to clicked tab
+                tab.classList.add('active', 'text-primary');
+                tab.classList.remove('text-on-surface-variant');
+                tab.setAttribute('aria-selected', 'true');
+                
+                updateIndicator(tab);
+
+                // Handle panels (crossfade)
+                const targetId = tab.getAttribute('data-target');
+                panels.forEach(panel => {
+                    if (panel.id === `panel-${targetId}`) {
+                        if(prefersReducedMotion) {
+                            panel.classList.remove('opacity-0', 'pointer-events-none');
+                            panel.classList.add('opacity-100');
+                        } else {
+                            setTimeout(() => {
+                                panel.classList.remove('opacity-0', 'pointer-events-none');
+                                panel.classList.add('opacity-100');
+                            }, 50); // slight delay for crossfade effect
+                        }
+                    } else {
+                        panel.classList.remove('opacity-100');
+                        panel.classList.add('opacity-0', 'pointer-events-none');
+                    }
+                });
+            });
+        });
+
+        // Re-calculate indicator on window resize
+        window.addEventListener('resize', () => {
+            const activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab) updateIndicator(activeTab);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,26 @@
+# Environments
+.env
+.env.local
+.env.*.local
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+.vercel
+
+# Other
+frames/
+
+# Videos - ignored by default, except chosen sample assets
+*.mp4
+*.mov
+!sample-videos/*.mp4
+!sample-videos/*.mov
+
+# Archives
+*.zip

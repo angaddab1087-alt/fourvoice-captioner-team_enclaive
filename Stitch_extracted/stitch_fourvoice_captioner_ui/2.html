@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FourVoice Captioner - Processing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&amp;family=IBM+Plex+Mono:wght@600&amp;family=Inter:wght@400&amp;family=Libre+Caslon+Text:ital@1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ffb4ab",
+                      "on-secondary": "#003921",
+                      "on-tertiary-fixed-variant": "#484740",
+                      "surface-variant": "#323533",
+                      "on-tertiary-fixed": "#1c1c16",
+                      "surface-container-high": "#282b28",
+                      "on-primary-container": "#654000",
+                      "inverse-surface": "#e1e3df",
+                      "inverse-on-surface": "#2e312f",
+                      "primary-container": "#f0a93e",
+                      "on-tertiary-container": "#494842",
+                      "outline": "#9e8e7c",
+                      "secondary-fixed": "#95f6bf",
+                      "background": "#111412",
+                      "tertiary-fixed-dim": "#cac6be",
+                      "primary": "#ffc982",
+                      "tertiary": "#d6d2ca",
+                      "surface-container": "#1d201e",
+                      "surface-container-highest": "#323533",
+                      "on-secondary-container": "#9bfcc4",
+                      "outline-variant": "#514536",
+                      "surface-bright": "#373a37",
+                      "on-primary-fixed": "#291800",
+                      "tertiary-container": "#bab7af",
+                      "on-primary": "#452b00",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#633f00",
+                      "surface-container-low": "#191c1a",
+                      "on-surface-variant": "#d6c4b0",
+                      "on-secondary-fixed": "#002111",
+                      "surface-tint": "#ffb955",
+                      "on-error": "#690005",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#79daa4",
+                      "secondary-container": "#00784b",
+                      "surface-container-lowest": "#0c0f0d",
+                      "surface-dim": "#111412",
+                      "on-background": "#e1e3df",
+                      "surface": "#111412",
+                      "inverse-primary": "#835500",
+                      "tertiary-fixed": "#e6e2d9",
+                      "on-surface": "#e1e3df",
+                      "primary-fixed-dim": "#ffb955",
+                      "on-secondary-fixed-variant": "#005232",
+                      "secondary": "#79daa4",
+                      "primary-fixed": "#ffddb4",
+                      "on-tertiary": "#31302b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "40px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "container-max": "1440px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "IBM Plex Mono"
+                      ],
+                      "headline-md": [
+                              "Bricolage Grotesque"
+                      ],
+                      "emphasis-italic": [
+                              "Libre Caslon Text"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Bricolage Grotesque"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Bricolage Grotesque"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "emphasis-italic": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .progress-bar-container {
+            width: 100%;
+            height: 2px;
+            background-color: var(--surface-variant); /* Fallback */
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar-container.bg-surface-variant {
+            background-color: #323533;
+        }
+        
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #ffb955; /* primary-fixed-dim / Signal Amber */
+            width: 0%;
+            animation: fillProgress 10s ease-in-out forwards;
+        }
+        
+        .status-text-transition {
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        @keyframes shaderPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .breathing-container {
+            animation: breathe 4s ease-in-out infinite;
+        }
+        
+        .shader-pulse {
+            animation: shaderPulse 3s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .progress-bar-fill {
+                animation: fillProgress 10s linear forwards;
+            }
+            .breathing-container,
+            .shader-pulse {
+                animation: none;
+            }
+            .status-text-transition {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center justify-center overflow-hidden font-body-md text-body-md antialiased selection:bg-primary selection:text-on-primary">
+<!-- Main Container -->
+<main class="relative w-full max-w-[800px] px-margin-mobile md:px-margin-desktop flex flex-col items-center z-10 breathing-container">
+<!-- WebGL Waveform Motif -->
+<div class="relative w-full h-[400px] md:h-[500px] mb-12 flex items-center justify-center shader-pulse">
+<!-- Ensure shader handles its own styling internally based on context, 
+                 but we give it a container to constrain its size. -->
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full object-contain pointer-events-none filter drop-shadow-[0_0_15px_rgba(255,185,85,0.1)]" -->
+<div class="absolute inset-0 w-full h-full object-contain pointer-events-none filter drop-shadow-[0_0_15px_rgba(255,185,85,0.1)]" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+varying vec2 v_texCoord;
+
+// Simplex noise or similar wave function to create a pulsing waveform
+float wave(vec2 uv, float phase, float freq, float amp) {
+    float d = abs(uv.y - 0.5 + sin(uv.x * freq + phase) * amp);
+    return smoothstep(0.015, 0.0, d);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Base amber color from design system: #F0A93E -> vec3(0.94, 0.66, 0.24)
+    vec3 amber = vec3(0.941, 0.663, 0.243);
+    
+    float t = u_time * 2.0;
+    
+    // Wave parameters
+    float freq = 10.0;
+    float amp = 0.05 * (0.5 + 0.5 * sin(t * 0.5));
+    
+    // Create multiple waves that "split" or merge
+    // During processing, we can simulate the "split into four" transition
+    // For now, let's create a dynamic multi-line pulse
+    
+    float w1 = wave(uv, t, freq, amp);
+    float w2 = wave(uv, t * 1.1 + 1.0, freq * 0.8, amp * 0.7);
+    float w3 = wave(uv, t * 0.9 - 0.5, freq * 1.2, amp * 0.9);
+    float w4 = wave(uv, t * 1.2 + 2.0, freq * 1.1, amp * 0.6);
+    
+    float combined = max(max(w1, w2), max(w3, w4));
+    
+    // Add horizontal fade
+    combined *= smoothstep(0.0, 0.2, uv.x) * smoothstep(1.0, 0.8, uv.x);
+    
+    vec3 color = amber * combined;
+    
+    // Background is Carbon Ink (#0F1210) but we want transparency for layering
+    gl_FragColor = vec4(color, combined);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+</div>
+<!-- Processing Metadata & Progress -->
+<div class="w-full max-w-[400px] flex flex-col items-center gap-6">
+<!-- Dynamic Status Label -->
+<div class="h-6 flex items-center justify-center overflow-hidden">
+<span class="font-label-caps text-label-caps text-tertiary-fixed-dim uppercase tracking-[0.1em] text-center status-text-transition" id="statusLabel">
+                    Transcribing audio...
+                </span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full">
+<div class="progress-bar-container bg-surface-variant rounded-full">
+<div class="progress-bar-fill rounded-full shadow-[0_0_8px_rgba(255,185,85,0.4)]" id="progressBar"></div>
+</div>
+</div>
+<!-- Technical Detail (Optional secondary info) -->
+<div class="flex items-center gap-2 mt-2 opacity-50">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+<span class="font-label-caps text-[10px] uppercase text-on-surface-variant">Model: FV-4.2 Core</span>
+</div>
+</div>
+</main>
+<!-- Subtle Grain Overlay (Simulating tactical screen texture) -->
+<div class="pointer-events-none fixed inset-0 z-50 opacity-[0.03] mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusLabel = document.getElementById('statusLabel');
+            const progressBar = document.getElementById('progressBar');
+            
+            const stages = [
+                'Transcribing audio...',
+                'Analyzing visual content...',
+                'Generating four styles...',
+                'Self-checking accuracy...',
+                'Finalizing...'
+            ];
+
+            let currentStateIndex = 0;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function cycleLabels() {
+                currentStateIndex = (currentStateIndex + 1) % stages.length;
+                
+                if (!prefersReducedMotion) {
+                    statusLabel.style.opacity = '0';
+                    setTimeout(() => {
+                        statusLabel.textContent = stages[currentStateIndex];
+                        statusLabel.style.opacity = '1';
+                    }, 300);
+                } else {
+                    statusLabel.textContent = stages[currentStateIndex];
+                }
+            }
+
+            setInterval(cycleLabels, 2000);
+
+            // Add glow effect near completion (simulated based on time)
+            setTimeout(() => {
+                progressBar.style.boxShadow = '0 0 12px rgba(255, 201, 130, 0.6)';
+            }, 9000);
+        });
+    </script>
+</body></html>

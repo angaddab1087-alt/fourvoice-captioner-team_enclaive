@@ -1,0 +1,60 @@
+# ========== Secrets & Environment ==========
+.env
+.env.local
+.env.*.local
+*.key
+API_KEY.txt
+
+# ========== Dependencies ==========
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ========== Build output ==========
+dist/
+*.cjs
+*.cjs.map
+
+# ========== Vercel ==========
+.vercel
+
+# ========== Video & audio files (large binaries) ==========
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.mp3
+*.wav
+*.flac
+*.ogg
+
+# Allow small sample test videos (~30-42KB each) as demo assets
+!test_video_nature.mp4
+!test_video_screen.mp4
+!test_video_tutorial.mp4
+!test_e2e_video.mp4
+
+# ========== Frame extraction output ==========
+frames/
+validation_output/
+
+# ========== Pipeline output (generated, not source) ==========
+output/
+test_output/
+test_output2/
+test_single/
+input/
+test_output.json
+test_e2e_results.json
+
+# ========== OS files ==========
+.DS_Store
+Thumbs.db
+
+# ========== Temp files ==========
+*.tmp
+temp/
+uploads/

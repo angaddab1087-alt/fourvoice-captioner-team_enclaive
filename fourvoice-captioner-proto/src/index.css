@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-serif: "Libre Caslon Text", serif;
+
+  --color-brand-bg: #111412;
+  --color-brand-surface: #1b1f1c;
+  --color-brand-amber: #f0a93e;
+  --color-brand-mint: #5fbf8c;
+  --color-brand-bone: #ede9e0;
+  --color-brand-charcoal: #2e332f;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
