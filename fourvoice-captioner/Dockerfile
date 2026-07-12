@@ -1,7 +1,7 @@
 # FourVoice Captioner Backend (Express + Python)
 # Build: docker buildx build --platform linux/amd64 -t fourvoice-captioner:latest --load .
 
-FROM --platform=linux/amd64 node:20-bullseye-slim
+FROM --platform=linux/amd64 node:20-bookworm-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \

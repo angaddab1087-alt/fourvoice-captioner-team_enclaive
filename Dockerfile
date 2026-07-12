@@ -1,5 +1,5 @@
 # Root Dockerfile — Backend (Express + Python)
-FROM --platform=linux/amd64 node:20-bullseye-slim
+FROM --platform=linux/amd64 node:20-bookworm-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
