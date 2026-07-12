@@ -4,8 +4,8 @@ services:
     env: docker
     region: ohio
     plan: free
-    dockerContext: ./fourvoice-captioner
-    dockerfilePath: ./fourvoice-captioner/Dockerfile
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: PORT
         value: 3001
