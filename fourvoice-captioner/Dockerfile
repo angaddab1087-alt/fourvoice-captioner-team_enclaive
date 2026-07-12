@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Install Python deps
-COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt --break-system-packages
+COPY requirements-backend.txt .
+RUN pip3 install --no-cache-dir -r requirements-backend.txt --break-system-packages
 
 # Install Node deps
 COPY package*.json ./
