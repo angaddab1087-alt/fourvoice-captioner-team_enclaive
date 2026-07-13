@@ -13,7 +13,6 @@ Unlike template-based four-style generators, this agent (1) grounds facts once v
 - Python 3.11+
 - `ffmpeg` on PATH
 - Fireworks API key (`FIREWORKS_API_KEY`)
-- **Gemma on-demand deployment** for vision grounding (see below)
 
 ### Environment
 
@@ -44,7 +43,7 @@ docker buildx build --platform linux/amd64 -t fourvoice-captioner:latest --load 
 docker run --rm --platform linux/amd64 --env-file .env `
   -v "${PWD}\sample_input:/input:ro" `
   -v "${PWD}\sample_output:/output" `
-  fourvoice-captioner:latest
+  fourvoice-captioner: latest
 ```
 
 ### Folder mode (local video files)
@@ -72,10 +71,10 @@ python fourvoice-captioner\fourvoice_captioner.py --input-dir .\sample_videos --
 | Stage | Description |
 |-------|-------------|
 | 0 | Auto-detect `tasks.json` vs video folder; per-video error isolation |
-| 1 | ffmpeg audio extract → Fireworks Whisper STT |
+| 1 | ffmpeg audio extract → Fireworks |
 | 2 | Informativeness branch (>15 words, diversity/repetition check) |
 | 3A | Audio-grounded factual description (Llama 3.3 70B) |
-| 3B | Vision-grounded description (Gemma 4, 9 resized frames) |
+| 3B | Vision-grounded description (9 resized frames) |
 | 4 | Four separate style calls (Qwen3 32B) |
 | 5 | Self-QC judge; regenerate captions scoring below 3/5 |
 | 6 | Best-fit tone recommendation + reasoning |
@@ -128,21 +127,13 @@ Stage 2 counts real spoken words (excluding timestamps/metadata) and applies a r
 - **Unique-word ratio ≥ 0.45** (filters repetitive lyrics)
 - **No single word >25% of tokens** (filters "la la la" loops)
 
-If informative → **Stage 3A** grounds captions on the transcript alone (no invented visuals). If not → **Stage 3B** extracts 9 evenly spaced ffmpeg frames and uses Gemma vision to describe what is actually visible.
+If informative → **Stage 3A** grounds captions on the transcript alone (no invented visuals). If not → **Stage 3B** extracts 9 evenly spaced ffmpeg frames and uses Kimi K2 vision to describe what is actually visible.
 
 ### 2. Music videos and static-image reels
 
-No special-casing is required. Music-only, silent action, and static-image-with-music clips fail the informativeness check and naturally route to vision grounding. Gemma is instructed to describe visible content as-is — illustrated panels, performers, on-screen text — without guessing audio semantics from lyrics fragments.
+No special-casing is required. Music-only, silent action, and static-image-with-music clips fail the informativeness check and naturally route to vision grounding. Kimi K2 is instructed to describe visible content as-is — illustrated panels, performers, on-screen text — without guessing audio semantics from lyrics fragments.
 
-### 3. Gemma for grounding vs Qwen3 for styling
-
-**Gemma 4** (vision) is used once for factual visual grounding — its strength is multimodal accuracy and it qualifies for the Track 2 "Best Use of Gemma" partner prize.
-
-**Qwen3 32B** (text) handles the four creative rewrites from the single grounded description — a different model family optimized for expressive, stylistically distinct language. Facts are frozen after Stage 3; styling models never re-analyze raw audio/video.
-
-If Gemma is not deployed, the pipeline falls back to a serverless VLM (`kimi-k2p5` by default) so the container still completes.
-
-### 4. Confidence score
+### 3. Confidence score
 
 `confidence` (0.0–1.0) reflects how much of the final description was directly observed vs inferred:
 
