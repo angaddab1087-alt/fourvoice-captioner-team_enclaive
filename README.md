@@ -73,9 +73,9 @@ python fourvoice-captioner\fourvoice_captioner.py --input-dir .\sample_videos --
 | 0 | Auto-detect `tasks.json` vs video folder; per-video error isolation |
 | 1 | ffmpeg audio extract → Fireworks |
 | 2 | Informativeness branch (>15 words, diversity/repetition check) |
-| 3A | Audio-grounded factual description (Llama 3.3 70B) |
+| 3A | Audio-grounded factual description (DeepSeek V4 Pro) |
 | 3B | Vision-grounded description (9 resized frames) |
-| 4 | Four separate style calls (Qwen3 32B) |
+| 4 | Four separate style calls (DeepSeek V4 Pro) |
 | 5 | Self-QC judge; regenerate captions scoring below 3/5 |
 | 6 | Best-fit tone recommendation + reasoning |
 | 7 | Confidence score (0.0–1.0) |
