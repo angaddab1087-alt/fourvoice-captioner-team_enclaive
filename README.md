@@ -22,7 +22,6 @@ Copy [`.env.example`](.env.example) to `.env` and set your key:
 ```bash
 FIREWORKS_API_KEY=your_key_here
 FIREWORKS_BASE_URL=https://api.fireworks.ai/inference/v1
-GEMMA_VISION_MODEL=accounts/<account>/models/gemma-4-26b-a4b-it#accounts/<account>/deployments/<deployment_id>
 ```
 
 Verify models against the live catalog:
